@@ -1,9 +1,9 @@
 # SUscan
 
-_macbuildscan.py_ - Updated version with logic for Apple's confusing alternative dist files.
+_macscan.py_ - Updated version with logic for Apple's confusing alternative dist files.
 It will return all build numbers and product id's even if the same build number is found in multiple products
 ```
-usage: python macbuildscan.py
+usage: python macscan.py
 ```
 ```
  #    ProductID    Version    Build  Beta
