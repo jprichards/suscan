@@ -83,6 +83,7 @@ def findeligible(plist):
 
 
 def main():
+    results = {}
     for macurl in macurls:
         print '\nFetching macOS Builds from %s' % macurl
         r = requests.get(macurl)
@@ -126,19 +127,18 @@ def main():
             if parsed['BUILD'][-1].isalpha():
                 other_dists[o]['beta'] = 'True'
 
-        results = {}
         results.update(proper_dists)
         results.update(other_dists)
 
-        # Pretty print again taken from Greg N installinstallmacos.py
-        print '%2s %12s %10s %8s  %s' % ('#', 'ProductID', 'Version',
-                                         'Build', 'Beta')
-        for index, product_id in enumerate(results):
-            print '%2s %12s %10s %8s  %s' % (index+1,
-                                             product_id,
-                                             results[product_id]['version'],
-                                             results[product_id]['build'],
-                                             results[product_id]['beta'])
+    # Pretty print again taken from Greg N installinstallmacos.py
+    print '%2s %12s %10s %8s  %s' % ('#', 'ProductID', 'Version',
+                                     'Build', 'Beta')
+    for index, product_id in enumerate(results):
+        print '%2s %12s %10s %8s  %s' % (index+1,
+                                         product_id,
+                                         results[product_id]['version'],
+                                         results[product_id]['build'],
+                                         results[product_id]['beta'])
 
 
 if __name__ == '__main__':
