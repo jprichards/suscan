@@ -1,4 +1,7 @@
 #!/usr/bin/python
+
+# OUTDATED - USE MACSCAN.PY
+
 import argparse
 import datetime
 import json

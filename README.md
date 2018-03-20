@@ -58,4 +58,4 @@ tvOS:
 
 
 
-_suscan.py is now outdated:_
+_suscan.py is now outdated and only up for archival purposes_
