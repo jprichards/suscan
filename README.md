@@ -28,7 +28,30 @@ _xmlscan.py_ - Scans Apple update xml for iOS and tvOS builds
 ```
 usage: python xmlscan.py
 ```
+```
+iOS:
+ #    Build Version
+ 1      6.0 10A444
+ 2    6.1.3 10B329
+ 3    6.1.6 10B500
+ 4    7.1.2 11D257
+ 5    7.1.2 11D258
+ 6    8.4.1 12H321
+ 7    8.4.2 12H606
+ 8    9.3.5 13G36
+ 9   10.3.3 14G60
+10   10.3.3 14G6060
+11   11.2.6 15D100
+12   11.2.6 15D6100
+13     11.3 15E5216a
+14    5.1.1 9B206
 
+tvOS:
+ #    Build Version
+ 1   11.2.6 15K600
+ 2   11.2.6 15K6600
+ 3     11.3 15L5208a
+ ```
 
 
 

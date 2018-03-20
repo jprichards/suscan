@@ -18,21 +18,49 @@ def parse(catalog):
             osversion = asset['OSVersion'][4:]
         else:
             osversion = asset['OSVersion']
-        builds[asset['Build']] = osversion
-    return json.dumps(builds, indent=1, sort_keys=True)
+        if asset.get('ReleaseType'):
+            isBeta = True
+        else:
+            isBeta = False
+        buildnum = asset['Build']
+        builds.update({buildnum:{'Version':osversion,'Beta':isBeta}})
+
+    return builds
 
 
 def main():
     print "Fetching iOS Builds from %s" % ioscatalog
-    print parse(ioscatalog) + '\n'
+    ioscatbuilds = parse(ioscatalog)
     print "Fetching tvOS Builds from %s" % tvoscatalog
-    print parse(tvoscatalog) + '\n'
+    tvoscatbuilds = parse(tvoscatalog)
     print "Fetching iOS Public Seed Builds from %s" % iospublicseed
-    print parse(iospublicseed) + '\n'
+    iospubbuilds = parse(iospublicseed)
     print "Fetching iOS 11 Public Seed Builds from %s" % ios11publicseed
-    print parse(ios11publicseed) + '\n'
+    ioslatestpubbuilds = parse(ios11publicseed)
     print "Fetching tvOS 11 Public Seed Builds from %s" % tvos11publicseed
-    print parse(tvos11publicseed) + '\n'
+    tvoslatestpubbuilds = parse(tvos11publicseed)
+
+    ioslatestpubbuilds.update(iospubbuilds)
+    ioslatestpubbuilds.update(ioscatbuilds)
+
+    tvoslatestpubbuilds.update(tvoscatbuilds)
+
+
+    # Pretty print taken from Greg N installinstallmacos.py
+    # https://github.com/munki/macadmin-scripts/blob/master/installinstallmacos.py
+    print '\niOS:'
+    print '%2s %8s %4s' % ('#', 'Build', 'Version')
+    for index, build in enumerate(sorted(ioslatestpubbuilds)):
+        print '%2s %8s %4s' % (index+1,
+                                ioslatestpubbuilds[build]['Version'],
+                                build)
+
+    print '\ntvOS:'
+    print '%2s %8s %4s' % ('#', 'Build', 'Version')
+    for index, build in enumerate(sorted(tvoslatestpubbuilds)):
+        print '%2s %8s %4s' % (index+1,
+                                tvoslatestpubbuilds[build]['Version'],
+                                build)
 
 if __name__ == '__main__':
     main()
