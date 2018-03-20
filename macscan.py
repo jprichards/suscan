@@ -133,7 +133,7 @@ def main():
     # Pretty print again taken from Greg N installinstallmacos.py
     print '%2s %12s %10s %8s  %s' % ('#', 'ProductID', 'Version',
                                      'Build', 'Beta')
-    for index, product_id in enumerate(results):
+    for index, product_id in enumerate(sorted(results)):
         print '%2s %12s %10s %8s  %s' % (index+1,
                                          product_id,
                                          results[product_id]['version'],
