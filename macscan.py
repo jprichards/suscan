@@ -113,9 +113,10 @@ def main():
             parsedbuild = easyparse(r.content)
             proper_dists[p]['build'] = parsedbuild
             if parsedbuild[-1].isdigit():
-                proper_dists[p]['beta'] = 'False'
+                proper_dists[p]['beta'] = False
             if parsedbuild[-1].isalpha():
-                proper_dists[p]['beta'] = 'True'
+                proper_dists[p]['beta'] = True
+            proper_dists[p]['fullinstaller'] = False
 
         for o in other_dists:
             r = requests.get(other_dists[o]['url'])
@@ -123,22 +124,26 @@ def main():
             other_dists[o]['build'] = parsed['BUILD']
             other_dists[o]['version'] = parsed['VERSION']
             if parsed['BUILD'][-1].isdigit():
-                other_dists[o]['beta'] = 'False'
+                other_dists[o]['beta'] = False
             if parsed['BUILD'][-1].isalpha():
-                other_dists[o]['beta'] = 'True'
+                other_dists[o]['beta'] = True
+            other_dists[o]['fullinstaller'] = True
 
         results.update(proper_dists)
         results.update(other_dists)
 
     # Pretty print again taken from Greg N installinstallmacos.py
-    print '%2s %12s %10s %8s  %s' % ('#', 'ProductID', 'Version',
-                                     'Build', 'Beta')
+    print '%2s %12s %10s %9s %8s %8s %22s' % ('#', 'ProductID', 'Version',
+                                     'Build', 'Beta', 'Full', 'Date')
     for index, product_id in enumerate(sorted(results)):
-        print '%2s %12s %10s %8s  %s' % (index+1,
+        print '%2s %12s %10s %9s %8s %8s %22s' % (index+1,
                                          product_id,
                                          results[product_id]['version'],
                                          results[product_id]['build'],
-                                         results[product_id]['beta'])
+                                         results[product_id]['beta'],
+                                         results[product_id]['fullinstaller'],
+                                         results[product_id]['date'])
+
 
 
 if __name__ == '__main__':
