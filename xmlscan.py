@@ -5,11 +5,17 @@ import requests
 
 ioscatalog = 'http://mesu.apple.com/assets/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
 iospublicseed = 'http://mesu.apple.com/assets/iOSPublicSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
+ios12publicseed = 'http://mesu.apple.com/assets/iOS12PublicSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
+ios12devseed = 'https://mesu.apple.com/assets/iOS12DeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
 ios11publicseed = 'http://mesu.apple.com/assets/iOS11PublicSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
 ios11devseed = 'https://mesu.apple.com/assets/iOS11DeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
 tvoscatalog = 'http://mesu.apple.com/assets/tv/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
-tvos11publicseed = 'http://mesu.apple.com/assets/tvOS11PublicSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
-tvos11devseed = 'https://mesu.apple.com/assets/tvOS11DeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
+tvos12publicseed = 'http://mesu.apple.com/assets/tvOS12PublicSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
+tvos12devseed = 'https://mesu.apple.com/assets/tvOS12DeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
+tvos11publicseed = 'http://mesu.apple.com/assets/tvOS12PublicSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
+tvos11devseed = 'https://mesu.apple.com/assets/tvOS12DeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml'
+
+
 
 def parse(catalog):
     builds = {}
@@ -43,23 +49,35 @@ def main():
     ioscatbuilds = parse(ioscatalog)
     print "Fetching iOS Public Seed Builds from %s" % iospublicseed
     iospubbuilds = parse(iospublicseed)
+    print "Fetching iOS 12 Public Seed Builds from %s" % ios12publicseed
+    ioslatestpubbuilds = parse(ios12publicseed)
+    print "Fetching iOS 12 Developer Seed Build from %s" % ios12devseed
+    ioslatestdevbuilds = parse(ios12devseed)
     print "Fetching iOS 11 Public Seed Builds from %s" % ios11publicseed
-    ioslatestpubbuilds = parse(ios11publicseed)
+    ioslatest11pubbuilds = parse(ios11publicseed)
     print "Fetching iOS 11 Developer Seed Build from %s" % ios11devseed
-    ioslatestdevbuilds = parse(ios11devseed)
+    ioslatest11devbuilds = parse(ios11devseed)
     print "Fetching tvOS Builds from %s" % tvoscatalog
     tvoscatbuilds = parse(tvoscatalog)
+    print "Fetching tvOS 12 Public Seed Builds from %s" % tvos12publicseed
+    tvoslatestpubbuilds = parse(tvos12publicseed)
+    print "Fetching tvOS 12 Developer Seed Builds from %s" % tvos12devseed
+    tvoslatestdevbuilds = parse(tvos12devseed)
     print "Fetching tvOS 11 Public Seed Builds from %s" % tvos11publicseed
-    tvoslatestpubbuilds = parse(tvos11publicseed)
+    tvoslatest11pubbuilds = parse(tvos11publicseed)
     print "Fetching tvOS 11 Developer Seed Builds from %s" % tvos11devseed
-    tvoslatestdevbuilds = parse(tvos11devseed)
+    tvoslatest11devbuilds = parse(tvos11devseed)
 
     ioslatestpubbuilds.update(iospubbuilds)
     ioslatestpubbuilds.update(ioscatbuilds)
     ioslatestpubbuilds.update(ioslatestdevbuilds)
+    ioslatestpubbuilds.update(ioslatest11pubbuilds)
+    ioslatestpubbuilds.update(ioslatest11devbuilds)
 
     tvoslatestpubbuilds.update(tvoscatbuilds)
     tvoslatestpubbuilds.update(tvoslatestdevbuilds)
+    tvoslatestpubbuilds.update(tvoslatest11pubbuilds)
+    tvoslatestpubbuilds.update(tvoslatest11devbuilds)
 
     # Pretty print taken from Greg N installinstallmacos.py
     # https://github.com/munki/macadmin-scripts/blob/master/installinstallmacos.py
