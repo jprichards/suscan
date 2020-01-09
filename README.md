@@ -64,10 +64,3 @@ tvOS:
  3   16K5524a    12.1.2
  4    16K6045    12.1.1
  ```
-
-
-
-
-
-
-_suscan.py is now outdated and only up for archival purposes_
